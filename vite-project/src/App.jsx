@@ -7,6 +7,12 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -58,16 +64,14 @@ export default function App() {
                   const newValue = Number(e.target.value);
                   if (!isNaN(newValue)) {
                     setInitialInvestment(newValue);
-                    if(newValue < 0)
-                    {
+                    if (newValue < 0) {
                       setErrorExist(true);
                       setErrors({
                         ...errors,
-                        initialInvestment: "Initial investment cannot be negative",
+                        initialInvestment:
+                          "Initial investment cannot be negative",
                       });
-                    }
-                    else
-                    {
+                    } else {
                       setErrorExist(false);
                       setErrors({
                         ...errors,
@@ -76,7 +80,7 @@ export default function App() {
                     }
                   } else {
                     //setInitialInvestment(0);
-                    setInitialInvestment(newValue)
+                    setInitialInvestment(newValue);
                     setErrorExist(true);
                     setErrors({
                       ...errors,
@@ -97,16 +101,14 @@ export default function App() {
                   const newValue = Number(e.target.value);
                   if (!isNaN(newValue)) {
                     setAnnualInvestment(newValue);
-                    if(newValue < 0)
-                    {
+                    if (newValue < 0) {
                       setErrorExist(true);
                       setErrors({
                         ...errors,
-                        annualInvestment: "Annual investment cannot be negative",
+                        annualInvestment:
+                          "Annual investment cannot be negative",
                       });
-                    }
-                    else
-                    {
+                    } else {
                       setErrorExist(false);
                       setErrors({
                         ...errors,
@@ -114,7 +116,7 @@ export default function App() {
                       });
                     }
                   } else {
-                    setAnnualInvestment(newValue)
+                    setAnnualInvestment(newValue);
                     setErrorExist(true);
                     setErrors({
                       ...errors,
@@ -135,24 +137,19 @@ export default function App() {
                   const newValue = Number(e.target.value);
                   if (!isNaN(newValue)) {
                     setExpectedReturn(newValue);
-                    if(newValue < 0)
-                    {
+                    if (newValue < 0) {
                       setErrorExist(true);
                       setErrors({
                         ...errors,
                         expectedReturn: "Expected return cannot be negative",
                       });
-                    }
-                    else if(newValue > 100)
-                    { 
+                    } else if (newValue > 100) {
                       setErrorExist(true);
                       setErrors({
                         ...errors,
                         expectedReturn: "only 100% is allowed",
-                      });  
-                    }
-                    else
-                    {
+                      });
+                    } else {
                       setErrorExist(false);
                       setErrors({
                         ...errors,
@@ -160,7 +157,7 @@ export default function App() {
                       });
                     }
                   } else {
-                    setExpectedReturn(newValue)
+                    setExpectedReturn(newValue);
                     setErrorExist(true);
                     setErrors({
                       ...errors,
@@ -181,16 +178,13 @@ export default function App() {
                   const newValue = Number(e.target.value);
                   if (!isNaN(newValue)) {
                     setDuration(newValue);
-                    if(newValue < 0)
-                    {
+                    if (newValue < 0) {
                       setErrorExist(true);
                       setErrors({
                         ...errors,
                         duration: "Duration cannot be negative",
                       });
-                    }
-                    else
-                    {
+                    } else {
                       setErrorExist(false);
                       setErrors({
                         ...errors,
@@ -198,7 +192,7 @@ export default function App() {
                       });
                     }
                   } else {
-                    setDuration(newValue)
+                    setDuration(newValue);
                     setErrorExist(true);
                     setErrors({
                       ...errors,
@@ -218,6 +212,33 @@ export default function App() {
             <Paper sx={{ p: 3 }}>
               {/* Results table will go here */}
               <Typography variant="h6">Investment Growth</Typography>
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      {/* We'll add column headers here */}
+                      <TableCell sx={{ fontWeight: 'bold' }}>Year</TableCell>
+                      <TableCell sx={{ fontWeight: 'bold' }}>Investment Value</TableCell>
+                      <TableCell sx={{ fontWeight: 'bold' }}>Yearly Interest</TableCell>
+                      <TableCell sx={{ fontWeight: 'bold' }}>Total Interest</TableCell>
+                      <TableCell sx={{ fontWeight: 'bold' }}>Invested Capital</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {/* We'll map through your data here */}
+                    {!errorExist &&
+                      data.map((item, index) => (
+                        <TableRow key={index}>
+                          <TableCell>{item.year}</TableCell>
+                          <TableCell>{item.investmentValue}</TableCell>
+                          <TableCell>{item.yearlyInterest}</TableCell>
+                          <TableCell>{item.totalInterest}</TableCell>
+                          <TableCell>{item.investedCapital}</TableCell>
+                        </TableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </Paper>
           </Grid>
         </Grid>
